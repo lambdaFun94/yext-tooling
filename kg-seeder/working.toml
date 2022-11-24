@@ -1,0 +1,18 @@
+    name = "Test Account"
+    accountType = "DIAGNOSTIC"
+    country = "US"
+    language = "en"
+    defaultLocationType = "LOCATION"
+    parentBusinessId = "69878"
+    
+    [users.OWNER]
+    firstName = "Test"
+    lastName = "User"
+    emailPrefix = "testUser"
+    password = "<PASSWORD>"
+    
+    [[acl.OWNER]]
+    roles = ["FULL_CONTROL"]
+    
+    [subscriptionFeatures]
+    ALL = ["LIVE_API", "SCHEMA", "STORE_PAGES"]
