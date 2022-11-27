@@ -9,11 +9,9 @@ from faker import Faker
 class _Entity: 
     def __init__(self, name, entity_type):
         self.name = name
-        self.entity_type = entity_type
+        self.query_params = {'entityType': entity_type}
 
     def toJSON(self):
-        if hasattr(self, 'entity_type'):
-            delattr(self, 'entity_type')
         if hasattr(self, 'query_params'):
             delattr(self, 'query_params')
         return json.dumps(self, default=lambda o: o.__dict__, 
@@ -69,7 +67,7 @@ class Job(_Entity):
 class FAQ(_Entity):
     def __init__(self):
         super().__init__('', 'faq')
-        self.query_params = {'format': 'html'}
+        self.query_params['format'] = 'html'
         self._generate_faq()
 
     def _generate_faq(self):
