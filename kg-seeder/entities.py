@@ -44,6 +44,8 @@ class Location(_Entity):
 class Hotel(Location):
     def __init__(self):
         super().__init__('hotel')
+        fake = Faker()
+        self.name = fake.company() + ' ' + 'Hotel'
 
 class HealthcareFacility(Location):
     def __init__(self):
