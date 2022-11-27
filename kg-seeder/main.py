@@ -1,6 +1,6 @@
 from termcolor import colored
 
-from entities import Location, Hotel, FAQ
+from entities import Location, Hotel, FAQ, Job, HealthcareFacility
 from client import YextClient
 
 def create_entities(num, entity_type, client):
@@ -11,6 +11,12 @@ def create_entities(num, entity_type, client):
             ent = Location()
         elif entity_type == 'FAQ':
             ent = FAQ()
+        elif entity_type == 'job':
+            ent = Job()
+        elif entity_type == 'healthcareFacility':
+            ent = HealthcareFacility()
+        else:
+            raise Exception('User Error! Supported entity types:\n hotel, location, FAQ, job, healthcareFacility\n')
 
         client.post(ent)
 
