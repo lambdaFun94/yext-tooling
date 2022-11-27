@@ -3,7 +3,6 @@ from termcolor import colored
 from entities import Location, Hotel, FAQ, Job, HealthcareFacility, Restaurant, ATM
 from client import YextClient
 
-
 ENTITIES = ['hotel', 'location', 'FAQ', 'job', 'healthcareFacility', 'restaurant', 'ATM']
 
 def create_entities(num, entity_type, client):
