@@ -1,9 +1,18 @@
 from termcolor import colored
 
-from entities import Location, Hotel, FAQ, Job, HealthcareFacility
+from entities import Location, Hotel, FAQ, Job, HealthcareFacility, Restaurant, ATM
 from client import YextClient
 
+
+ENTITIES = ['hotel', 'location', 'FAQ', 'job', 'healthcareFacility', 'restaurant', 'ATM']
+
 def create_entities(num, entity_type, client):
+    """
+    To support a new entity:
+    1. Make a new class in entities.py and import it into this module
+    2. Add the name to the ENTITIES array 
+    3. Add name to if, elif statement below
+    """
     for i in range(num):
         if entity_type == 'hotel':
             ent = Hotel()
@@ -15,8 +24,12 @@ def create_entities(num, entity_type, client):
             ent = Job()
         elif entity_type == 'healthcareFacility':
             ent = HealthcareFacility()
+        elif entity_type == 'restaurant':
+            ent = Restaurant()
+        elif entity_type == 'ATM':
+            ent = ATM()
         else:
-            raise Exception('User Error! Supported entity types:\n hotel, location, FAQ, job, healthcareFacility\n')
+            raise Exception(f'User Error! Entity type: [{entity_type}] is not supported')
 
         client.post(ent)
 
@@ -25,7 +38,7 @@ def main():
     api_key = input(colored('Input an API key with read/write KG permissions:\n', 'green'))
 
     # Select API Universe
-    print(colored('Choose a Yext universe:\n 1. Production \n 2. Sandbox', 'green'))
+    print(colored('Choose a Yext universe:\n1. Production \n2. Sandbox', 'green'))
     universe_selection = input('')
     universe = ''
     if universe_selection == '1':
@@ -36,8 +49,11 @@ def main():
         raise Exception(colored('User Error: Please input 1 for Production or 2 for Sandbox', 'red'))
 
     # Select entities to create
-    entities = input(colored('Input entities to create (<num_entities>:<entity_type>)\nExample: 2:location 1:FAQ 3:atm\n', 'green'))
-            
+    supported_entities = ', '.join(ENTITIES)
+    green = colored(f'Input entities to create (<num_entities>:<entity_type>)\nSupported Entities: ', 'green') 
+    blue = colored(f'{supported_entities}\n', 'blue') 
+    entities = input(green + blue)
+         
     # Seed KG
     ents_arr = entities.split(' ')
     client = YextClient(api_key, universe)

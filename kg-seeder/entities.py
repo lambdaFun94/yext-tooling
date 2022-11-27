@@ -7,6 +7,9 @@ from faker import Faker
 
 
 class _Entity: 
+    def __init__(self, name, entity_type):
+        self.name = name
+        self.entity_type = entity_type
 
     def toJSON(self):
         if hasattr(self, 'entity_type'):
@@ -30,8 +33,9 @@ class _Address():
 class Location(_Entity):
     def __init__(self, entity_type='location'):
         fake = Faker()
-        self.name = fake.company() + ' ' + fake.company_suffix()
-        self.entity_type = entity_type
+        name = fake.company() + ' ' + fake.company_suffix()
+
+        super().__init__(name, entity_type)
         self.description = fake.catch_phrase() + '. ' + lorem.paragraph()
         self.address = _Address()
         # self.mainPhone = fake.phone_number()
@@ -45,17 +49,24 @@ class HealthcareFacility(Location):
     def __init__(self):
         super().__init__('healthcareFacility')
 
+class Restaurant(Location):
+    def __init__(self):
+        super().__init__('restaurant')
+
+class ATM(Location):
+    def __init__(self):
+        super().__init__('atm')
+        self.name = 'ATM at ' + self.address.line1
+
 class Job(_Entity):
     def __init__(self):
         fake = Faker()
-        self.entity_type = 'job'
-        self.name = fake.job()
+        super().__init__(fake.job(), 'job')
         self.description = lorem.sentence()
-
 
 class FAQ(_Entity):
     def __init__(self):
-        self.entity_type = 'faq'
+        super().__init__('', 'faq')
         self.query_params = {'format': 'html'}
         self._generate_faq()
 
