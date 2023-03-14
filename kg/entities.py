@@ -34,7 +34,7 @@ class Location(_Entity):
         name = fake.company() + ' ' + fake.company_suffix()
 
         super().__init__(name, entity_type)
-        self.description = fake.catch_phrase() + '. ' + lorem.paragraph()
+        self.description = fake.catch_phrase() 
         self.address = _Address()
         # self.mainPhone = fake.phone_number()
 
